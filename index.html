@@ -1,0 +1,159 @@
+<html>
+  <head>
+    <title>EME?</title>
+    <style>
+      body {
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+      }
+      table {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -25vh 0 0 -25vw;
+        width: 50vh;
+        height: 50vh;
+        font-size: 5em;
+        font-family: sans-serif;
+        font-variant: small-caps;
+        text-align: center;
+      }
+      td {
+        padding: 10px;
+      }
+      .yes {
+        background-color: #4dac26;
+      }
+      .no {
+        background-color: #d7191c;
+      }
+      .probably {
+        background-color: #2c7bb6;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>widevine</td>
+        <td id=widevine></td>
+      </tr>
+      <tr>
+        <td>playready</td>
+        <td id=playready></td>
+      </tr>
+      <tr>
+        <td>clearkey</td>
+        <td id=clearkey></td>
+      </tr>
+      <tr>
+        <td>fairplay</td>
+        <td id=fairplay></td>
+    </table>
+    <script>
+      var config = [{
+        "initDataTypes": ["cenc"],
+        "audioCapabilities": [{
+          "contentType": "audio/mp4;codecs=\"mp4a.40.2\""
+        }],
+        "videoCapabilities": [{
+          "contentType": "video/mp4;codecs=\"avc1.42E01E\""
+        }]
+      }];
+      try {
+        navigator.
+        requestMediaKeySystemAccess("com.widevine.alpha", config).
+        then(function(mediaKeySystemAccess) {
+          widevine.innerText = "yes";
+          widevine.parentElement.className = 'yes';
+          console.log('widevine support ok');
+        }).catch(function(e) {
+          widevine.innerText = "no";
+          widevine.parentElement.className = 'no';
+          console.log('no widevine support');
+          console.log(e);
+        });
+      } catch (e) {
+        widevine.innerText = "no";
+        widevine.parentElement.className = 'no';
+        console.log('no widevine support');
+        console.log(e);
+      }
+      try {
+        navigator.
+        requestMediaKeySystemAccess("com.microsoft.playready", config).
+        then(function(mediaKeySystemAccess) {
+          playready.innerText = 'yes';
+          playready.parentElement.className = 'yes';
+          console.log('playready support ok');
+        }).catch(function(e) {
+          playready.innerText = 'no';
+          playready.parentElement.className = 'no';
+          console.log('no playready support');
+          console.log(e);
+        });
+      } catch (e) {
+        playready.innerText = 'no';
+        playready.parentElement.className = 'no';
+        console.log('no playready support');
+        console.log(e);
+      }
+      try {
+        navigator.
+        requestMediaKeySystemAccess("org.w3.clearkey",config).
+        then(function(mediaKeySystemAccess) {
+          clearkey.innerText = 'yes';
+          clearkey.parentElement.className = 'yes';
+          console.log('clearkey support ok');
+        }).catch(function(e) {
+          clearkey.innerText = 'no';
+          clearkey.parentElement.className = 'no';
+          console.log('no clearkey support');
+          console.log(e);
+        });
+      } catch (e) {
+        clearkey.innerText = 'no';
+        clearkey.parentElement.className = 'no';
+        console.log('no clearkey support');
+        console.log(e);
+      }
+      try {
+        if (window.WebKitMediaKeys) {
+          fairplay.innerText = "probably";
+          fairplay.parentElement.className = 'probably';
+          console.log('fairplay support maybe');
+        } else {
+          fairplay.innerText = "no";
+          fairplay.parentElement.className = 'no';
+          console.log('no fairplay support');
+        }
+      } catch (e) {
+        fairplay.innerText = "no";
+          fairplay.parentElement.className = 'no';
+        console.log('no fairplay support');
+        console.log(e);
+      }
+      try {
+        config[0].initDataTypes = ['sinf'];
+        navigator.
+        requestMediaKeySystemAccess("com.apple.fps",config).
+        then(function(mediaKeySystemAccess) {
+          fairplay.innerText = 'yes';
+          fairplay.parentElement.className = 'yes';
+          console.log('fairplay support ok');
+        }).catch(function(e) {
+        fairplay.innerText = 'no';
+        fairplay.parentElement.className = 'no';
+          console.log('no fairplay support');
+          console.log(e);
+        });
+      } catch (e) {
+        fairplay.innerText = 'no';
+        fairplay.parentElement.className = 'no';
+        console.log('no fairplay support');
+        console.log(e);
+      }
+    </script>
+  </body>
+</html>
