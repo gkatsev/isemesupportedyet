@@ -31,6 +31,11 @@
       .probably {
         background-color: #2c7bb6;
       }
+      .github {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
     </style>
   </head>
   <body>
@@ -51,8 +56,12 @@
         <td>fairplay</td>
         <td id=fairplay></td>
     </table>
+    <a class="github" href="https://github.com/gkatsev/isemesupportedyet">
+      <img src="https://img.shields.io/badge/Github-Issue%3F%20Submit%20a%20pull%20request-lightgrey">
+    </a>
+    <script src="./index.js"></script>
     <script>
-      var config = [{
+      checkConfig([{
         "initDataTypes": ["cenc"],
         "audioCapabilities": [{
           "contentType": "audio/mp4;codecs=\"mp4a.40.2\""
@@ -61,100 +70,7 @@
           "contentType": "video/mp4;codecs=\"avc1.42E01E\""
         }],
         persistentState: 'required'
-      }];
-      try {
-        navigator.
-        requestMediaKeySystemAccess("com.widevine.alpha", config).
-        then(function(mediaKeySystemAccess) {
-          widevine.innerText = "yes";
-          widevine.parentElement.className = 'yes';
-          console.log('widevine support ok');
-        }).catch(function(e) {
-          widevine.innerText = "no";
-          widevine.parentElement.className = 'no';
-          console.log('no widevine support');
-          console.log(e);
-        });
-      } catch (e) {
-        widevine.innerText = "no";
-        widevine.parentElement.className = 'no';
-        console.log('no widevine support');
-        console.log(e);
-      }
-      try {
-        navigator.
-        requestMediaKeySystemAccess("com.microsoft.playready", config).
-        then(function(mediaKeySystemAccess) {
-          playready.innerText = 'yes';
-          playready.parentElement.className = 'yes';
-          console.log('playready support ok');
-        }).catch(function(e) {
-          playready.innerText = 'no';
-          playready.parentElement.className = 'no';
-          console.log('no playready support');
-          console.log(e);
-        });
-      } catch (e) {
-        playready.innerText = 'no';
-        playready.parentElement.className = 'no';
-        console.log('no playready support');
-        console.log(e);
-      }
-      try {
-        navigator.
-        requestMediaKeySystemAccess("org.w3.clearkey",config).
-        then(function(mediaKeySystemAccess) {
-          clearkey.innerText = 'yes';
-          clearkey.parentElement.className = 'yes';
-          console.log('clearkey support ok');
-        }).catch(function(e) {
-          clearkey.innerText = 'no';
-          clearkey.parentElement.className = 'no';
-          console.log('no clearkey support');
-          console.log(e);
-        });
-      } catch (e) {
-        clearkey.innerText = 'no';
-        clearkey.parentElement.className = 'no';
-        console.log('no clearkey support');
-        console.log(e);
-      }
-      try {
-        if (window.WebKitMediaKeys) {
-          fairplay.innerText = "probably";
-          fairplay.parentElement.className = 'probably';
-          console.log('fairplay support maybe');
-        } else {
-          fairplay.innerText = "no";
-          fairplay.parentElement.className = 'no';
-          console.log('no fairplay support');
-        }
-      } catch (e) {
-        fairplay.innerText = "no";
-          fairplay.parentElement.className = 'no';
-        console.log('no fairplay support');
-        console.log(e);
-      }
-      try {
-        config[0].initDataTypes = ['sinf'];
-        navigator.
-        requestMediaKeySystemAccess("com.apple.fps",config).
-        then(function(mediaKeySystemAccess) {
-          fairplay.innerText = 'yes';
-          fairplay.parentElement.className = 'yes';
-          console.log('fairplay support ok');
-        }).catch(function(e) {
-        fairplay.innerText = 'no';
-        fairplay.parentElement.className = 'no';
-          console.log('no fairplay support');
-          console.log(e);
-        });
-      } catch (e) {
-        fairplay.innerText = 'no';
-        fairplay.parentElement.className = 'no';
-        console.log('no fairplay support');
-        console.log(e);
-      }
+      }]);
     </script>
   </body>
 </html>
