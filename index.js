@@ -51,6 +51,7 @@ if (!navigator.requestMediaKeySystemAccess) {
   };
 }
 
+// borrowed heavily from https://www.radiantmediaplayer.com/blog/detecting-eme-cdm-browser.html
 var checkConfig = function(config) {
   [{
     keySystem: 'com.widevine.alpha',
